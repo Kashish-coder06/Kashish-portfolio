@@ -18,77 +18,147 @@ import {
 import { motion } from "framer-motion";
 import { siteContent } from "@/data/content";
 
+// 1. Name regex: allows international letters, spaces, hyphens, apostrophes, dots.
+// Rejects names containing only numbers or symbols.
+const nameRegex = /^[a-zA-Z\u00C0-\u024F\u0400-\u04FF\u0600-\u06FF\s'\-\.]+$/;
+
+// 2. Strict email regex adhering to standard RFC patterns without rejecting newer TLDs.
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
 const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z
+    .string()
+    .transform((val) => val.trim())
+    .refine((val) => val.length > 0, {
+      message: "Please enter your name.",
+    })
+    .refine((val) => val.length >= 2, {
+      message: "Name must be at least 2 characters long.",
+    })
+    .refine((val) => val.length <= 60, {
+      message: "Name cannot exceed 60 characters.",
+    })
+    .refine((val) => nameRegex.test(val) && !/^[\s0-9!@#$%^&*()_+=\[\]{};:"\\|,.<>\/?-]+$/.test(val), {
+      message: "Please enter a valid name.",
+    }),
   email: z
     .string()
-    .email("Please provide a valid email address")
-    .refine(
-      (val) => {
-        // Block obviously fake/temporary domains
-        const blockedDomains = ["mailinator.com", "trashmail.com", "guerrillamail.com", "tempmail.com", "10minutemail.com", "yopmail.com"];
-        const domain = val.split("@")[1]?.toLowerCase();
-        return !blockedDomains.includes(domain);
-      },
-      { message: "Please use a real email address" }
-    ),
-  message: z.string().min(10, "Message must be at least 10 characters long"),
+    .transform((val) => val.trim())
+    .refine((val) => val.length > 0, {
+      message: "Please enter your email address.",
+    })
+    .refine((val) => !val.includes(" ") && !val.includes(","), {
+      message: "Please enter a valid email address.",
+    })
+    .refine((val) => emailRegex.test(val), {
+      message: "Please enter a valid email address.",
+    }),
+  message: z
+    .string()
+    .transform((val) => val.trim())
+    .refine((val) => val.length > 0, {
+      message: "Please enter your message.",
+    })
+    .refine((val) => val.length >= 10, {
+      message: "Your message must contain at least 10 characters.",
+    })
+    .refine((val) => val.length <= 2000, {
+      message: "Your message cannot exceed 2000 characters.",
+    }),
+  honeypot: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const { contact, personal, socials } = siteContent;
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [messageChars, setMessageChars] = useState(0);
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
+    mode: "onBlur", // Validates on blur and again on submit
+    reValidateMode: "onChange", // Clears or updates error as soon as user types valid input
   });
 
+  // Watch message field to update live character counter accurately
+  const watchMessage = watch("message", "");
+  React.useEffect(() => {
+    setMessageChars(watchMessage ? watchMessage.length : 0);
+  }, [watchMessage]);
+
   const onSubmit = async (data: ContactFormData) => {
+    // Prevent duplicate submissions
+    if (status === "loading") return;
+
     setStatus("loading");
     setErrorMessage("");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
-          subject: `New Portfolio Message from ${data.name}`,
-          from_name: data.name,
-          replyto: data.email,        // reply-to only — no auto-email to submitter
-          message: `From: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
-          botcheck: false,            // disable bot honeypot (we handle our own validation)
-        }),
-      });
+      // 1. Submit through the secured server-side API endpoint
+      let response: Response;
+      let result: any = null;
 
-      const result = await response.json();
-
-      if (result.success) {
-        // Trigger confetti celebration
-        confetti({
-          particleCount: 60,
-          spread: 70,
-          origin: { y: 0.7 },
-          colors: ["#06b6d4", "#3b82f6", "#10b981", "#38bdf8"],
+      try {
+        response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         });
+        result = await response.json().catch(() => null);
+      } catch (networkErr) {
+        // Fallback directly to client-side Web3Forms if /api/contact is unavailable (e.g. pure static host)
+        const web3Res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
+            subject: `Portfolio Message from ${data.name}`,
+            from_name: data.name,
+            replyto: data.email,
+            message: `From: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
+            botcheck: false,
+          }),
+        });
+        result = await web3Res.json().catch(() => null);
+        response = web3Res;
+      }
+
+      if (response && response.ok && result?.success) {
+        // Fire confetti celebration
+        try {
+          confetti({
+            particleCount: 60,
+            spread: 70,
+            origin: { y: 0.7 },
+            colors: ["#06b6d4", "#3b82f6", "#10b981", "#38bdf8"],
+          });
+        } catch {
+          // ignore confetti errors
+        }
+
         setStatus("success");
         reset();
+        setMessageChars(0);
       } else {
-        throw new Error(result.message || "Submission failed");
+        setStatus("error");
+        setErrorMessage(
+          result?.message ||
+            "Sorry, your message could not be sent. Please try again or contact me directly by email."
+        );
       }
     } catch {
       setStatus("error");
-      setErrorMessage("Something went wrong. Please reach out directly via email!");
+      setErrorMessage(
+        "Sorry, your message could not be sent. Please try again or contact me directly by email."
+      );
     }
   };
 
@@ -129,6 +199,7 @@ export default function Contact() {
               <a
                 href={`mailto:${socials.email}`}
                 className="flex items-center gap-4 p-4 rounded-2xl bg-cyan-50/60 dark:bg-slate-900/60 border border-cyan-100 dark:border-slate-800 hover:border-cyan-400 transition-colors group"
+                aria-label={`Send email directly to ${socials.email}`}
               >
                 <div className="p-3 rounded-xl bg-white dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 shadow-sm group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5" />
@@ -169,6 +240,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 hover:border-blue-400 transition-colors"
+                    aria-label="LinkedIn Profile"
                   >
                     <Linkedin className="w-4 h-4 text-blue-600" />
                     <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
@@ -180,6 +252,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 hover:border-slate-400 transition-colors"
+                    aria-label="GitHub Profile"
                   >
                     <Github className="w-4 h-4 text-slate-800 dark:text-white" />
                     <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
@@ -204,29 +277,56 @@ export default function Contact() {
                 Send a Message
               </h3>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <form
+                noValidate
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-5"
+                aria-label="Contact message form"
+              >
+                {/* Honeypot Spam Field (hidden from screen readers & users) */}
+                <div className="hidden" aria-hidden="true" style={{ display: "none" }}>
+                  <label htmlFor="hp_field">Do not fill this</label>
+                  <input
+                    id="hp_field"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    {...register("honeypot")}
+                  />
+                </div>
+
                 {/* Name Field */}
                 <div>
                   <label
                     htmlFor="name"
                     className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2"
                   >
-                    Your Name
+                    Your Name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     id="name"
                     type="text"
+                    maxLength={60}
+                    autoComplete="name"
+                    aria-required="true"
+                    aria-invalid={errors.name ? "true" : "false"}
+                    aria-describedby={errors.name ? "name-error" : undefined}
                     placeholder="e.g. Alex Morgan"
                     {...register("name")}
                     className={`w-full px-4 py-3 rounded-xl text-sm bg-slate-50 dark:bg-slate-900 border ${
                       errors.name
-                        ? "border-rose-400 focus:ring-rose-400"
+                        ? "border-rose-400 dark:border-rose-500 focus:ring-rose-400/20"
                         : "border-slate-200 dark:border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/20"
                     } outline-none focus:ring-2 transition-all text-slate-900 dark:text-white`}
                   />
                   {errors.name && (
-                    <p className="mt-1.5 text-xs text-rose-500 font-medium">
-                      {errors.name.message}
+                    <p
+                      id="name-error"
+                      role="alert"
+                      className="mt-1.5 text-xs text-rose-500 dark:text-rose-400 font-medium flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{errors.name.message}</span>
                     </p>
                   )}
                 </div>
@@ -237,88 +337,126 @@ export default function Contact() {
                     htmlFor="email"
                     className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2"
                   >
-                    Email Address
+                    Email Address <span className="text-rose-500">*</span>
                   </label>
                   <input
                     id="email"
                     type="email"
+                    autoComplete="email"
+                    aria-required="true"
+                    aria-invalid={errors.email ? "true" : "false"}
+                    aria-describedby={errors.email ? "email-error" : undefined}
                     placeholder="alex@example.com"
                     {...register("email")}
                     className={`w-full px-4 py-3 rounded-xl text-sm bg-slate-50 dark:bg-slate-900 border ${
                       errors.email
-                        ? "border-rose-400 focus:ring-rose-400"
+                        ? "border-rose-400 dark:border-rose-500 focus:ring-rose-400/20"
                         : "border-slate-200 dark:border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/20"
                     } outline-none focus:ring-2 transition-all text-slate-900 dark:text-white`}
                   />
                   {errors.email && (
-                    <p className="mt-1.5 text-xs text-rose-500 font-medium">
-                      {errors.email.message}
+                    <p
+                      id="email-error"
+                      role="alert"
+                      className="mt-1.5 text-xs text-rose-500 dark:text-rose-400 font-medium flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{errors.email.message}</span>
                     </p>
                   )}
                 </div>
 
                 {/* Message Field */}
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2"
-                  >
-                    Your Message
-                  </label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400"
+                    >
+                      Your Message <span className="text-rose-500">*</span>
+                    </label>
+                    {/* Live Character Counter */}
+                    <span
+                      className={`text-xs ${
+                        messageChars > 2000
+                          ? "text-rose-500 font-bold"
+                          : messageChars >= 10
+                          ? "text-cyan-600 dark:text-cyan-400 font-medium"
+                          : "text-slate-400 dark:text-slate-500"
+                      }`}
+                      aria-live="polite"
+                    >
+                      {messageChars}/2000
+                    </span>
+                  </div>
                   <textarea
                     id="message"
                     rows={4}
+                    maxLength={2000}
+                    aria-required="true"
+                    aria-invalid={errors.message ? "true" : "false"}
+                    aria-describedby={errors.message ? "message-error" : undefined}
                     placeholder="Hi Kashish, I'd like to talk about an internship opportunity..."
                     {...register("message")}
                     className={`w-full px-4 py-3 rounded-xl text-sm bg-slate-50 dark:bg-slate-900 border ${
                       errors.message
-                        ? "border-rose-400 focus:ring-rose-400"
+                        ? "border-rose-400 dark:border-rose-500 focus:ring-rose-400/20"
                         : "border-slate-200 dark:border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/20"
                     } outline-none focus:ring-2 transition-all text-slate-900 dark:text-white resize-none`}
                   />
                   {errors.message && (
-                    <p className="mt-1.5 text-xs text-rose-500 font-medium">
-                      {errors.message.message}
+                    <p
+                      id="message-error"
+                      role="alert"
+                      className="mt-1.5 text-xs text-rose-500 dark:text-rose-400 font-medium flex items-center gap-1"
+                    >
+                      <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{errors.message.message}</span>
                     </p>
                   )}
                 </div>
 
-                {/* Success Message Banner */}
-                {status === "success" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 flex items-center gap-3 text-sm font-medium"
-                  >
-                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
-                    <span>
-                      Thank you! Your message has been sent successfully. I will get back to you shortly.
-                    </span>
-                  </motion.div>
-                )}
+                {/* Status Announcement Live Region */}
+                <div aria-live="assertive" className="space-y-2">
+                  {/* Success Message Banner */}
+                  {status === "success" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 flex items-center gap-3 text-sm font-medium"
+                      role="status"
+                    >
+                      <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+                      <span>
+                        Thank you! Your message has been sent successfully. I will get back to you shortly.
+                      </span>
+                    </motion.div>
+                  )}
 
-                {/* Error Message Banner */}
-                {status === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 flex items-center gap-3 text-sm font-medium"
-                  >
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    <span>{errorMessage}</span>
-                  </motion.div>
-                )}
+                  {/* Error Message Banner */}
+                  {status === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300 flex items-center gap-3 text-sm font-medium"
+                      role="alert"
+                    >
+                      <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                      <span>{errorMessage}</span>
+                    </motion.div>
+                  )}
+                </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-full font-bold text-white bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                 >
                   {status === "loading" ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Sending Message...</span>
+                      <span>Sending...</span>
                     </>
                   ) : (
                     <>
@@ -335,3 +473,4 @@ export default function Contact() {
     </section>
   );
 }
+
