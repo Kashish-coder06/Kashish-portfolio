@@ -2,12 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { siteContent } from "@/data/content";
 
 export default function FloatingButtons() {
-  const { socials } = siteContent;
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -40,20 +37,6 @@ export default function FloatingButtons() {
           </motion.button>
         )}
       </AnimatePresence>
-
-      {/* Floating WhatsApp CTA Button */}
-      <a
-        href={socials.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="relative group p-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white shadow-xl shadow-emerald-500/30 hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
-      >
-        <FaWhatsapp className="w-6 h-6" />
-        <span className="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-slate-900/90 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
-          Chat on WhatsApp
-        </span>
-      </a>
     </div>
   );
 }
