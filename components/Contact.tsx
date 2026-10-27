@@ -20,7 +20,18 @@ import { siteContent } from "@/data/content";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please provide a valid email address"),
+  email: z
+    .string()
+    .email("Please provide a valid email address")
+    .refine(
+      (val) => {
+        // Block obviously fake/temporary domains
+        const blockedDomains = ["mailinator.com", "trashmail.com", "guerrillamail.com", "tempmail.com", "10minutemail.com", "yopmail.com"];
+        const domain = val.split("@")[1]?.toLowerCase();
+        return !blockedDomains.includes(domain);
+      },
+      { message: "Please use a real email address" }
+    ),
   message: z.string().min(10, "Message must be at least 10 characters long"),
 });
 
@@ -54,8 +65,9 @@ export default function Contact() {
           access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
           subject: `New Portfolio Message from ${data.name}`,
           from_name: data.name,
-          email: data.email,
-          message: data.message,
+          replyto: data.email,        // reply-to only — no auto-email to submitter
+          message: `From: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
+          botcheck: false,            // disable bot honeypot (we handle our own validation)
         }),
       });
 
