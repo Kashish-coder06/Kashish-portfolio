@@ -79,7 +79,6 @@ export const siteContent = {
     email: "kashish06kumari@gmail.com",
     linkedin: "https://www.linkedin.com/in/kashishkumari06",
     github: "https://github.com/Kashish-coder06",
-    behance: "https://www.behance.net/vipernoon",
   },
 
   hero: {

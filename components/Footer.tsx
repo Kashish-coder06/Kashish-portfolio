@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
-import { FaBehance } from "react-icons/fa";
 import { siteContent } from "@/data/content";
 
 export default function Footer() {
@@ -45,15 +44,6 @@ export default function Footer() {
             className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <Linkedin className="w-4 h-4" />
-          </a>
-          <a
-            href={socials.behance}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Behance"
-            className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            <FaBehance className="w-4 h-4" />
           </a>
           <a
             href={`mailto:${socials.email}`}

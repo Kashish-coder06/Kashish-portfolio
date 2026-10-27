@@ -3,7 +3,6 @@
 import React from "react";
 import { TypeAnimation } from "react-type-animation";
 import { Download, ArrowRight, Mail, Github, Linkedin } from "lucide-react";
-import { FaBehance } from "react-icons/fa";
 import { motion } from "framer-motion";
 import HeroScene3D from "./HeroScene3D";
 import { siteContent } from "@/data/content";
@@ -94,15 +93,6 @@ export default function Hero() {
               className="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-500 shadow-sm border border-slate-200/60 dark:border-slate-700 hover:scale-110 transition-transform"
             >
               <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href={socials.behance}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Behance Portfolio"
-              className="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-blue-600 shadow-sm border border-slate-200/60 dark:border-slate-700 hover:scale-110 transition-transform"
-            >
-              <FaBehance className="w-4 h-4" />
             </a>
             <a
               href={`mailto:${socials.email}`}

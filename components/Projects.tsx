@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { FaBehance } from "react-icons/fa";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
@@ -58,16 +57,6 @@ export default function Projects() {
                 Graphic Design Showcase
               </h3>
             </div>
-            <a
-              href={socials.behance}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-semibold text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-md shadow-blue-500/20 hover:-translate-y-0.5 transition-all self-start md:self-auto"
-            >
-              <FaBehance className="w-4 h-4" />
-              <span>See more on Behance</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
           </div>
 
           {/* Thumbnails Grid */}

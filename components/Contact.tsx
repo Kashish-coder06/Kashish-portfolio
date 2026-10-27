@@ -15,7 +15,6 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
-import { FaBehance } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { siteContent } from "@/data/content";
 
@@ -152,7 +151,7 @@ export default function Contact() {
                 <span className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
                   Profiles & Socials
                 </span>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   <a
                     href={socials.linkedin}
                     target="_blank"
@@ -173,17 +172,6 @@ export default function Contact() {
                     <Github className="w-4 h-4 text-slate-800 dark:text-white" />
                     <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
                       GitHub
-                    </span>
-                  </a>
-                  <a
-                    href={socials.behance}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 hover:border-blue-500 transition-colors"
-                  >
-                    <FaBehance className="w-4 h-4 text-blue-600" />
-                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      Behance
                     </span>
                   </a>
                 </div>
