@@ -43,7 +43,7 @@ const contactSchema = z.object({
     }),
   email: z
     .string()
-    .transform((val) => val.trim())
+    .transform((val) => val.trim().toLowerCase())
     .refine((val) => val.length > 0, {
       message: "Please enter your email address.",
     })
@@ -52,7 +52,19 @@ const contactSchema = z.object({
     })
     .refine((val) => emailRegex.test(val), {
       message: "Please enter a valid email address.",
-    }),
+    })
+    .refine(
+      (val) => {
+        const domain = val.split("@")[1]?.toLowerCase();
+        if (!domain || !domain.includes(".")) return false;
+        const blockedKeywords = [
+          "fake", "dummy", "test", "spam", "temp", "trash", "throwaway", "disposable",
+          "mailinator", "yopmail", "guerrillamail", "10minutemail", "sharklasers"
+        ];
+        return !blockedKeywords.some((keyword) => domain.includes(keyword));
+      },
+      { message: "Please use a real, verified email address." }
+    ),
   message: z
     .string()
     .transform((val) => val.trim())
@@ -102,7 +114,38 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      // 1. Submit through the secured server-side API endpoint
+      // 1. Live Domain Existence Check via Google DNS (checks if domain has real mail exchangers)
+      const emailDomain = data.email.split("@")[1]?.toLowerCase().trim();
+      const trustedProviders = [
+        "gmail.com", "googlemail.com", "yahoo.com", "ymail.com", "hotmail.com", 
+        "outlook.com", "live.com", "msn.com", "icloud.com", "me.com", "mac.com",
+        "proton.me", "protonmail.com", "zoho.com", "aol.com"
+      ];
+
+      if (!trustedProviders.includes(emailDomain)) {
+        try {
+          const dnsRes = await fetch(
+            `https://dns.google/resolve?name=${encodeURIComponent(emailDomain)}&type=MX`
+          );
+          const dnsData = await dnsRes.json().catch(() => null);
+          if (!dnsData || !dnsData.Answer || dnsData.Answer.length === 0) {
+            // Check fallback A record
+            const aRes = await fetch(
+              `https://dns.google/resolve?name=${encodeURIComponent(emailDomain)}&type=A`
+            );
+            const aData = await aRes.json().catch(() => null);
+            if (!aData || !aData.Answer || aData.Answer.length === 0) {
+              setStatus("error");
+              setErrorMessage(`The email domain "${emailDomain}" does not exist or cannot receive mail. Please use your real email address.`);
+              return;
+            }
+          }
+        } catch {
+          // If DNS check fails due to browser network, proceed
+        }
+      }
+
+      // 2. Submit through the secured server-side API endpoint
       let response: Response;
       let result: any = null;
 

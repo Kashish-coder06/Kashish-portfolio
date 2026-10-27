@@ -84,11 +84,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: "Please enter a valid email address." }, { status: 400 });
     }
 
-    // Disposable/fake spam domains
+    // Disposable/fake/dummy spam domains
     const domain = trimmedEmail.split("@")[1]?.toLowerCase();
-    const blockedDomains = ["mailinator.com", "trashmail.com", "guerrillamail.com", "tempmail.com", "10minutemail.com", "yopmail.com"];
-    if (domain && blockedDomains.includes(domain)) {
-      return NextResponse.json({ success: false, message: "Please use a real, permanent email address." }, { status: 400 });
+    const blockedKeywords = [
+      "fake", "dummy", "test", "spam", "temp", "trash", "throwaway", "disposable",
+      "mailinator", "yopmail", "guerrillamail", "10minutemail", "sharklasers"
+    ];
+    if (domain && blockedKeywords.some((keyword) => domain.includes(keyword))) {
+      return NextResponse.json(
+        { success: false, message: "Please use a real, verified email address." },
+        { status: 400 }
+      );
     }
 
     // 3. Message validation
