@@ -48,20 +48,33 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      // Simulate/Trigger Formspree or Email endpoint with graceful fallback
-      // In production, user can add their Formspree endpoint into siteContent or env
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
-      // Trigger confetti celebration
-      confetti({
-        particleCount: 60,
-        spread: 70,
-        origin: { y: 0.7 },
-        colors: ["#06b6d4", "#3b82f6", "#10b981", "#38bdf8"],
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
+          subject: `New Portfolio Message from ${data.name}`,
+          from_name: data.name,
+          email: data.email,
+          message: data.message,
+        }),
       });
 
-      setStatus("success");
-      reset();
+      const result = await response.json();
+
+      if (result.success) {
+        // Trigger confetti celebration
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.7 },
+          colors: ["#06b6d4", "#3b82f6", "#10b981", "#38bdf8"],
+        });
+        setStatus("success");
+        reset();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
     } catch {
       setStatus("error");
       setErrorMessage("Something went wrong. Please reach out directly via email!");
