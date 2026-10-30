@@ -61,22 +61,16 @@ export default function Projects() {
 
           {/* Thumbnails Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {designWorks.map((item) => (
-              <a
-                key={item.id}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md"
-              >
-                <div className="relative w-full h-44">
+            {designWorks.map((item) => {
+              const content = (
+                <div className="relative w-full h-56 sm:h-64">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex flex-col justify-end p-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent flex flex-col justify-end p-4">
                     <span className="text-[11px] font-semibold text-cyan-300 uppercase tracking-wider">
                       {item.category}
                     </span>
@@ -85,8 +79,27 @@ export default function Projects() {
                     </span>
                   </div>
                 </div>
-              </a>
-            ))}
+              );
+
+              return item.link ? (
+                <a
+                  key={item.id}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md cursor-pointer"
+                >
+                  {content}
+                </a>
+              ) : (
+                <div
+                  key={item.id}
+                  className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md"
+                >
+                  {content}
+                </div>
+              );
+            })}
           </div>
         </div>
 

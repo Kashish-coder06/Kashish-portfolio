@@ -54,7 +54,7 @@ export interface DesignWorkItem {
   title: string;
   category: string;
   image: string;
-  link: string;
+  link?: string;
 }
 
 export const siteContent = {
@@ -274,31 +274,27 @@ export const siteContent = {
   designWorks: [
     {
       id: "design-1",
-      title: "Brand Identity & Vector Logos",
-      category: "Branding",
-      image: "/projects/design-brand.svg",
-      link: "https://www.behance.net/vipernoon",
+      title: "Beauty & Skincare Social Ad",
+      category: "Product & Ad Design",
+      image: "/projects/showcase-beauty.jpg",
     },
     {
       id: "design-2",
-      title: "Modern UI/UX Web Concepts",
-      category: "UI/UX Design",
-      image: "/projects/design-ui.svg",
-      link: "https://www.behance.net/vipernoon",
+      title: "Men With Forest Book Cover Mockup",
+      category: "Cover & Mockup Design",
+      image: "/projects/showcase-forest-book.png",
     },
     {
       id: "design-3",
-      title: "Social Media Campaign Visuals",
-      category: "Digital Marketing",
-      image: "/projects/design-social.svg",
-      link: "https://www.behance.net/vipernoon",
+      title: "Detailed Vector Eye Illustration",
+      category: "Digital Illustration",
+      image: "/projects/showcase-vector-eye.png",
     },
     {
       id: "design-4",
-      title: "Typography & Event Posters",
-      category: "Print & Vector",
-      image: "/projects/design-poster.svg",
-      link: "https://www.behance.net/vipernoon",
+      title: "Musical Party Night Event Poster",
+      category: "Flyer & Poster Design",
+      image: "/projects/showcase-musical-party.jpg",
     },
   ] as DesignWorkItem[],
 
