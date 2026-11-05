@@ -60,21 +60,26 @@ export default function Projects() {
           </div>
 
           {/* Thumbnails Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {designWorks.map((item) => {
               const content = (
-                <div className="relative w-full h-56 sm:h-64">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent flex flex-col justify-end p-4">
-                    <span className="text-[11px] font-semibold text-cyan-300 uppercase tracking-wider">
+                <div className="flex flex-col h-full">
+                  {/* Full image display with aspect-square and contain */}
+                  <div className="relative w-full aspect-square bg-slate-950/20 dark:bg-slate-950/50 flex items-center justify-center p-2 overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  {/* Clean readable card footer */}
+                  <div className="p-4 bg-white/95 dark:bg-slate-900/95 border-t border-slate-100 dark:border-slate-800 flex flex-col justify-between flex-grow">
+                    <span className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
                       {item.category}
                     </span>
-                    <span className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                    <span className="text-sm font-bold text-slate-800 dark:text-white group-hover:text-cyan-500 transition-colors line-clamp-2">
                       {item.title}
                     </span>
                   </div>
@@ -87,14 +92,14 @@ export default function Projects() {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md cursor-pointer"
+                  className="group relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md flex flex-col cursor-pointer"
                 >
                   {content}
                 </a>
               ) : (
                 <div
                   key={item.id}
-                  className="group relative rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md"
+                  className="group relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md flex flex-col"
                 >
                   {content}
                 </div>

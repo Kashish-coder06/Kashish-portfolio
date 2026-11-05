@@ -280,24 +280,18 @@ export const siteContent = {
     },
     {
       id: "design-2",
-      title: "Men With Forest Book Cover Mockup",
-      category: "Cover & Mockup Design",
-      image: "/projects/showcase-forest-book.png",
-    },
-    {
-      id: "design-3",
       title: "Detailed Vector Eye Illustration",
       category: "Digital Illustration",
       image: "/projects/showcase-vector-eye.png",
     },
     {
-      id: "design-4",
+      id: "design-3",
       title: "Musical Party Night Event Poster",
       category: "Flyer & Poster Design",
       image: "/projects/showcase-musical-party.jpg",
     },
     {
-      id: "design-5",
+      id: "design-4",
       title: "GCUH IT Student's Society Social Media Post",
       category: "Social Media & Branding",
       image: "/projects/showcase-it-society.jpg",
