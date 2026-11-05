@@ -2,13 +2,13 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, Bot, Globe, Palette } from "lucide-react";
+import { Code2, Bot, Sparkles, Palette } from "lucide-react";
 import { siteContent } from "@/data/content";
 
 const categoryIcons = [
   <Code2 key="code" className="w-5 h-5 text-cyan-500" />,
   <Bot key="ai" className="w-5 h-5 text-blue-500" />,
-  <Globe key="web" className="w-5 h-5 text-sky-500" />,
+  <Sparkles key="tools" className="w-5 h-5 text-sky-500" />,
   <Palette key="design" className="w-5 h-5 text-teal-500" />,
 ];
 
