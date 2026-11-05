@@ -8,6 +8,84 @@ import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
 import { siteContent, ProjectItem } from "@/data/content";
 
+interface ShowcaseCardProps {
+  item: (typeof siteContent.designWorks)[number];
+}
+
+function ShowcaseCard({ item }: ShowcaseCardProps) {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const [shine, setShine] = React.useState({ x: 50, y: 50, opacity: 0 });
+  const isIllustration = item.id === "design-2" || item.category.includes("Illustration");
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setShine({ x, y, opacity: 0.35 });
+  };
+
+  const handleMouseLeave = () => {
+    setShine({ x: 50, y: 50, opacity: 0 });
+  };
+
+  const content = (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative flex flex-col h-full rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all duration-300 shadow-sm hover:shadow-glow group cursor-pointer"
+    >
+      {/* Interactive Cursor Light Effect */}
+      <div
+        className="pointer-events-none absolute inset-0 z-30 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(circle 180px at ${shine.x}% ${shine.y}%, rgba(6, 182, 212, 0.4) 0%, rgba(59, 130, 246, 0.15) 40%, transparent 80%)`,
+          opacity: shine.opacity,
+        }}
+      />
+
+      {/* Image Container with Custom Zoom for Illustration */}
+      <div className="relative w-full aspect-square bg-slate-950/20 dark:bg-slate-950/50 flex items-center justify-center p-2 overflow-hidden">
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className={`object-contain transition-transform duration-500 ${
+            isIllustration
+              ? "scale-125 group-hover:scale-135"
+              : "p-1 group-hover:scale-105"
+          }`}
+        />
+      </div>
+
+      {/* Card Info Footer */}
+      <div className="p-4 bg-white/95 dark:bg-slate-900/95 border-t border-slate-100 dark:border-slate-800 flex flex-col justify-between flex-grow z-20">
+        <span className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
+          {item.category}
+        </span>
+        <span className="text-sm font-bold text-slate-800 dark:text-white group-hover:text-cyan-500 transition-colors line-clamp-2">
+          {item.title}
+        </span>
+      </div>
+    </div>
+  );
+
+  return item.link ? (
+    <a
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="h-full"
+    >
+      {content}
+    </a>
+  ) : (
+    <div className="h-full">{content}</div>
+  );
+}
+
 export default function Projects() {
   const { projects, designWorks, socials } = siteContent;
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
@@ -61,50 +139,9 @@ export default function Projects() {
 
           {/* Thumbnails Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {designWorks.map((item) => {
-              const content = (
-                <div className="flex flex-col h-full">
-                  {/* Full image display with aspect-square and contain */}
-                  <div className="relative w-full aspect-square bg-slate-950/20 dark:bg-slate-950/50 flex items-center justify-center p-2 overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  {/* Clean readable card footer */}
-                  <div className="p-4 bg-white/95 dark:bg-slate-900/95 border-t border-slate-100 dark:border-slate-800 flex flex-col justify-between flex-grow">
-                    <span className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
-                      {item.category}
-                    </span>
-                    <span className="text-sm font-bold text-slate-800 dark:text-white group-hover:text-cyan-500 transition-colors line-clamp-2">
-                      {item.title}
-                    </span>
-                  </div>
-                </div>
-              );
-
-              return item.link ? (
-                <a
-                  key={item.id}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md flex flex-col cursor-pointer"
-                >
-                  {content}
-                </a>
-              ) : (
-                <div
-                  key={item.id}
-                  className="group relative rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-all shadow-sm hover:shadow-md flex flex-col"
-                >
-                  {content}
-                </div>
-              );
-            })}
+            {designWorks.map((item) => (
+              <ShowcaseCard key={item.id} item={item} />
+            ))}
           </div>
         </div>
 
