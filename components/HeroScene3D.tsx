@@ -62,11 +62,10 @@ function OrbitBadge({
 
 function SceneInteractive() {
   const groupRef = useRef<THREE.Group>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
   const starsRef = useRef<THREE.Points>(null);
 
   // Generate gentle 3D ambient particle starfield
-  const particleCount = 45;
+  const particleCount = 40;
   const positions = React.useMemo(() => {
     const pos = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
@@ -90,10 +89,6 @@ function SceneInteractive() {
         0.05
       );
     }
-    if (ringRef.current) {
-      ringRef.current.rotation.z += delta * 0.15;
-      ringRef.current.rotation.x = THREE.MathUtils.degToRad(68);
-    }
     if (starsRef.current) {
       starsRef.current.rotation.y -= delta * 0.04;
     }
@@ -101,7 +96,7 @@ function SceneInteractive() {
 
   return (
     <group ref={groupRef}>
-      {/* Subtle 3D Glowing Particle Dust */}
+      {/* Subtle 3D Glowing Particle Dust in Background */}
       <points ref={starsRef}>
         <bufferGeometry>
           <bufferAttribute
@@ -110,24 +105,13 @@ function SceneInteractive() {
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.065}
+          size={0.06}
           color="#38bdf8"
           transparent
-          opacity={0.65}
+          opacity={0.5}
           blending={THREE.AdditiveBlending}
         />
       </points>
-
-      {/* Futuristic 3D Cyber Ring around avatar */}
-      <mesh ref={ringRef} position={[0, 0, -0.2]}>
-        <torusGeometry args={[2.0, 0.018, 16, 100]} />
-        <meshBasicMaterial
-          color="#06b6d4"
-          wireframe
-          transparent
-          opacity={0.4}
-        />
-      </mesh>
 
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.6}>
         <OrbitBadge
