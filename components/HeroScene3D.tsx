@@ -9,8 +9,7 @@ import {
   IconPython,
   IconFastAPI,
   IconPandas,
-  IconTypeScript,
-  IconNextJS,
+  IconScikitLearn,
   IconTableau,
 } from "./TechIcons";
 
@@ -125,39 +124,31 @@ function SceneInteractive() {
         <OrbitBadge
           radius={2.6}
           speed={-0.35}
-          initialAngle={1.05}
+          initialAngle={1.25}
           icon={<IconFastAPI className="w-4 h-4" />}
           label="FastAPI"
           color="#009688"
         />
         <OrbitBadge
           radius={2.7}
-          speed={0.3}
-          initialAngle={2.1}
+          speed={0.32}
+          initialAngle={2.5}
           icon={<IconPandas className="w-4 h-4" />}
           label="Pandas"
           color="#e11d48"
         />
         <OrbitBadge
-          radius={2.5}
+          radius={2.55}
           speed={-0.38}
-          initialAngle={3.14}
-          icon={<IconTypeScript className="w-4 h-4" />}
-          label="TypeScript"
-          color="#3b82f6"
+          initialAngle={3.75}
+          icon={<IconScikitLearn className="w-4 h-4" />}
+          label="Scikit-Learn"
+          color="#f97316"
         />
         <OrbitBadge
-          radius={2.8}
-          speed={0.33}
-          initialAngle={4.2}
-          icon={<IconNextJS className="w-4 h-4" />}
-          label="Next.js"
-          color="#0ea5e9"
-        />
-        <OrbitBadge
-          radius={2.4}
-          speed={-0.42}
-          initialAngle={5.3}
+          radius={2.45}
+          speed={0.34}
+          initialAngle={5.0}
           icon={<IconTableau className="w-4 h-4" />}
           label="Tableau"
           color="#e97627"
@@ -238,9 +229,9 @@ export default function HeroScene3D({
             </span>
           </div>
           <div className="absolute bottom-12 right-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-cyan-100 dark:border-slate-800 animate-float">
-            <IconTypeScript className="w-4 h-4 text-blue-500" />
+            <IconScikitLearn className="w-4 h-4 text-orange-500" />
             <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-              TypeScript
+              Scikit-Learn
             </span>
           </div>
         </div>

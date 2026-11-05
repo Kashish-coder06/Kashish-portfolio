@@ -48,6 +48,14 @@ export function IconNextJS({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
+export function IconScikitLearn({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M14.67 4.18c-1.88 0-3.4 1.52-3.4 3.4 0 .34.05.67.14.98L7.84 10.4a3.39 3.39 0 0 0-1.84-.54c-1.88 0-3.4 1.52-3.4 3.4 0 1.88 1.52 3.4 3.4 3.4.67 0 1.29-.2 1.81-.54l3.58 1.86a3.36 3.36 0 0 0-.12.88c0 1.88 1.52 3.4 3.4 3.4s3.4-1.52 3.4-3.4-1.52-3.4-3.4-3.4c-.67 0-1.29.2-1.81.54l-3.58-1.86c.07-.27.12-.56.12-.88 0-.34-.05-.67-.14-.98l3.57-1.84c.52.34 1.14.54 1.81.54 1.88 0 3.4-1.52 3.4-3.4s-1.52-3.4-3.4-3.4z" />
+    </svg>
+  );
+}
+
 export function IconCanva({ className = "w-4 h-4" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
