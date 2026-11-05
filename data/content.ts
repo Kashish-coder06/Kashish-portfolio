@@ -213,22 +213,22 @@ export const siteContent = {
       featured: true,
     },
     {
-      id: "bulk-whatsapp-automation",
-      title: "Bulk WhatsApp Messaging Automation",
+      id: "raasta-civic-platform",
+      title: "Raasta — Civic Issue Platform",
       shortDescription:
-        "Robust automation tool using Selenium and Pandas to deliver personalized notifications without manual fatigue.",
+        "Full-stack civic engagement and issue mapping application built during the Denning Hackathon.",
       fullDescription:
-        "Automated batch messaging system designed to dispatch personalized student and client updates from structured CSV/Excel sheets with intelligent random delays.",
+        "An innovative civic issue reporting and interactive map explorer platform. Empowers citizens to report local civic issues (potholes, water leaks, streetlights) with real-time geolocation mapping, live status histories, community upvotes, and administrative moderator workflows.",
       problem:
-        "Broadcasting individual customized messages manually is exhausting, prone to clerical errors, and causes accounts to get rate-limited.",
+        "Citizens lack an accessible, transparent, real-time mechanism to report and track municipal infrastructure problems directly to responsible authorities.",
       approach:
-        "Utilized Selenium WebDriver with active session persistence, dynamic element detection, customizable message templates, and human-like throttling.",
+        "Engineered with React 18, TypeScript, Tailwind CSS, Leaflet GIS mapping, Supabase backend integration, and a role-based moderator review dashboard.",
       learned:
-        "Deepened knowledge of browser automation architectures, headless Chrome drivers, anti-ban wait timers, and error recovery queues.",
-      tags: ["Python", "Selenium", "Pandas", "Automation"],
-      image: "/projects/bulk-whatsapp.svg",
-      liveUrl: "https://github.com/Kashish-coder06",
-      githubUrl: "https://github.com/Kashish-coder06",
+        "Gained comprehensive experience in Leaflet interactive spatial mapping, geographic coordinate plotting, Supabase schema migrations, and high-pressure hackathon teamwork.",
+      tags: ["React", "TypeScript", "Tailwind CSS", "Leaflet GIS", "Supabase"],
+      image: "/projects/raasta.png",
+      liveUrl: "https://github.com/Kashish-coder06/hackathon-project-team-TRIAD",
+      githubUrl: "https://github.com/Kashish-coder06/hackathon-project-team-TRIAD",
       featured: true,
     },
   ] as ProjectItem[],
