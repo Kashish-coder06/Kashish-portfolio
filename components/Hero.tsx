@@ -25,10 +25,12 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left z-10"
         >
-          {/* Main Heading with Dynamic Typing & Accent Underline */}
+          {/* Main Heading with Permanent Name & Animated Roles on Second Line */}
           <div className="mb-4">
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-              {hero.greeting}{" "}
+              {hero.greeting} <span className="text-slate-900 dark:text-white">{personal.name}</span>
+            </h1>
+            <div className="mt-2 text-2xl sm:text-4xl lg:text-5xl font-heading font-extrabold tracking-tight">
               <span className="relative inline-block whitespace-nowrap">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
                   <TypeAnimation
@@ -41,7 +43,7 @@ export default function Hero() {
                 {/* Reference UI Accent Underline Bar */}
                 <span className="absolute left-0 -bottom-1.5 w-full h-[5px] bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-80" />
               </span>
-            </h1>
+            </div>
           </div>
 
           {/* Subtitle */}
