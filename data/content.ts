@@ -95,9 +95,9 @@ export const siteContent = {
 
   stats: [
     { value: 3.8, suffix: "", decimals: 2, label: "CGPA (GCUH)" },
-    { value: 5, suffix: "+", decimals: 0, label: "Projects Completed" },
-    { value: 3, suffix: "", decimals: 0, label: "Experiences" },
-    { value: 5, suffix: "+", decimals: 0, label: "Certifications" },
+    { value: 3, suffix: "+", decimals: 0, label: "Core Projects" },
+    { value: 5, suffix: "", decimals: 0, label: "Experiences & Roles" },
+    { value: 7, suffix: "+", decimals: 0, label: "Certifications" },
   ],
 
   about: {
@@ -230,44 +230,6 @@ export const siteContent = {
       liveUrl: "https://github.com/Kashish-coder06",
       githubUrl: "https://github.com/Kashish-coder06",
       featured: true,
-    },
-    {
-      id: "ai-vision-assistant",
-      title: "AI Vision Assistant",
-      shortDescription:
-        "Modern web application combining computer vision models with Next.js and TypeScript.",
-      fullDescription:
-        "Interactive web application capable of analyzing images, recognizing text, describing visual scenes, and providing instant AI-driven answers.",
-      problem:
-        "Delivering smooth image uploads and instantaneous multimodal responses without interface freezing or layout jumping.",
-      approach:
-        "Constructed with Next.js 14 App Router, TypeScript, Tailwind CSS, client-side image compression, and streaming vision endpoints.",
-      learned:
-        "Refined modern React component composition, typed server actions, and accessibility patterns for visual analysis tools.",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vision AI"],
-      image: "/projects/vision-assistant.svg",
-      liveUrl: "https://github.com/Kashish-coder06",
-      githubUrl: "https://github.com/Kashish-coder06",
-      featured: true,
-    },
-    {
-      id: "project-banana",
-      title: "Project Banana (AR Experience)",
-      shortDescription:
-        "AR-based QR menu scanning web experience where food items animate seamlessly across devices.",
-      fullDescription:
-        "Next-generation digital dining prototype where restaurant visitors scan tabletop QR codes to preview interactive 3D animated dishes right before ordering.",
-      problem:
-        "Static 2D paper menus provide little visual context for portion sizing and dish presentation.",
-      approach:
-        "Combined lightweight 3D web models with camera-based AR anchoring and mobile-optimized WebGL render pipelines.",
-      learned:
-        "Optimized 3D geometry and texture memory for low-latency smartphone browsers and responsive touch controls.",
-      tags: ["AR / 3D", "JavaScript", "WebGL", "Mobile UX"],
-      image: "/projects/project-banana.svg",
-      liveUrl: "https://github.com/Kashish-coder06",
-      githubUrl: "https://github.com/Kashish-coder06",
-      featured: false,
     },
   ] as ProjectItem[],
 
