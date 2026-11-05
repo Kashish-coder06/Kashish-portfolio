@@ -145,36 +145,26 @@ export default function Contact() {
         }
       }
 
-      // 2. Submit through the secured server-side API endpoint
-      let response: Response;
-      let result: any = null;
+      // 2. Submit directly to Web3Forms from client side (Browser)
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
+          subject: `Portfolio Message from ${data.name}`,
+          from_name: data.name,
+          replyto: data.email,
+          message: `From: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
+          botcheck: false,
+        }),
+      });
 
-      try {
-        response = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        result = await response.json().catch(() => null);
-      } catch (networkErr) {
-        // Fallback directly to client-side Web3Forms if /api/contact is unavailable (e.g. pure static host)
-        const web3Res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            access_key: "026ca16e-8058-40ff-81e5-9e98a254a2de",
-            subject: `Portfolio Message from ${data.name}`,
-            from_name: data.name,
-            replyto: data.email,
-            message: `From: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`,
-            botcheck: false,
-          }),
-        });
-        result = await web3Res.json().catch(() => null);
-        response = web3Res;
-      }
+      const result = await response.json().catch(() => null);
 
-      if (response && response.ok && result?.success) {
+      if (response.ok && result?.success) {
         // Fire confetti celebration
         try {
           confetti({
