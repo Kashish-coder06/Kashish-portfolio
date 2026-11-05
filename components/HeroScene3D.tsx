@@ -49,11 +49,11 @@ function OrbitBadge({
     <group ref={ref}>
       <Html center distanceFactor={10} zIndexRange={[100, 0]}>
         <div
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg shadow-cyan-500/15 border border-cyan-100 dark:border-cyan-900/60 select-none cursor-pointer transition-transform hover:scale-110 active:scale-95"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg shadow-cyan-500/15 border border-cyan-100 dark:border-cyan-900/60 select-none cursor-pointer whitespace-nowrap transition-transform hover:scale-110 active:scale-95"
           style={{ borderColor: `${color}35` }}
         >
           <span style={{ color }}>{icon}</span>
-          <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+          <span className="text-xs font-semibold whitespace-nowrap text-slate-700 dark:text-slate-200">
             {label}
           </span>
         </div>
