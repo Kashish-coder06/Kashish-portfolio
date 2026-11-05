@@ -274,9 +274,9 @@ export const siteContent = {
   designWorks: [
     {
       id: "design-1",
-      title: "Beauty & Skincare Social Ad",
+      title: "Beauty & Skincare Campaign Ad",
       category: "Product & Ad Design",
-      image: "/projects/showcase-beauty.jpg",
+      image: "/projects/showcase-beauty-square.jpg",
     },
     {
       id: "design-2",
@@ -295,6 +295,12 @@ export const siteContent = {
       title: "Musical Party Night Event Poster",
       category: "Flyer & Poster Design",
       image: "/projects/showcase-musical-party.jpg",
+    },
+    {
+      id: "design-5",
+      title: "GCUH IT Student's Society Social Media Post",
+      category: "Social Media & Branding",
+      image: "/projects/showcase-it-society.jpg",
     },
   ] as DesignWorkItem[],
 
