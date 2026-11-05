@@ -20,7 +20,7 @@ export interface ExperienceItem {
   duration: string;
   description: string;
   badge?: string;
-  position: "left-top" | "left-bottom" | "right-top" | "right-bottom";
+  position: "left-top" | "left-middle" | "left-bottom" | "right-top" | "right-middle" | "right-bottom";
 }
 
 export interface EducationItem {
@@ -302,8 +302,17 @@ export const siteContent = {
     heading: "My",
     headingHighlight: "Experience",
     subtitle: "My professional journey and educational background in technology",
-    badgeCenter: "3 Experiences",
+    badgeCenter: "4+ Experiences",
     items: [
+      {
+        id: "datheon",
+        role: "Python + Generative AI & LangChain Intern",
+        company: "Datheon (AI Systems & Automation Studio)",
+        duration: "Oct 2026 - Nov 05, 2026 (4 Weeks)",
+        description:
+          "Engineered AI workflows with LangChain, integrated LLM architectures, and built automated intelligent systems (Certificate ID: CERT-DT-2026-EPZNH).",
+        position: "left-top",
+      },
       {
         id: "alkhidmat",
         role: "Volunteer Management Intern",
@@ -311,7 +320,7 @@ export const siteContent = {
         duration: "June 2026 - Present",
         description:
           "Coordinating volunteer groups, managing community welfare operations, and streamlining communication pipelines for relief drives.",
-        position: "left-top",
+        position: "left-bottom",
       },
       {
         id: "borlo-labs",
@@ -320,7 +329,7 @@ export const siteContent = {
         duration: "March 2026 - April 2026",
         description:
           "Explored RAG applications for intelligent knowledge retrieval, engineered FastAPI workflows for AI backends, and developed prompt chains.",
-        position: "left-bottom",
+        position: "right-top",
       },
       {
         id: "gcuh-degree",
@@ -329,7 +338,7 @@ export const siteContent = {
         duration: "2024 - 2027 (Expected)",
         description:
           "Current CGPA: 3.80/4.0. Strong academic focus on Data Structures, Python, Database Management Systems, and Software Engineering.",
-        position: "right-top",
+        position: "right-bottom",
       },
       {
         id: "digital-sindh",
@@ -362,6 +371,20 @@ export const siteContent = {
   },
 
   certifications: [
+    {
+      title: "Python + Generative AI & LangChain Internship",
+      issuer: "Datheon (AI Systems & Automation Studio)",
+      linkText: "View Certificate",
+      verifyUrl: "/certificates/datheon-certificate.png",
+      type: "cert",
+    },
+    {
+      title: "Denning Hyderabad Hackathon 2026-2027",
+      issuer: "Denning Hyderabad Tech Gen Society @ DITE",
+      linkText: "View Certificate",
+      verifyUrl: "/certificates/hackathon-denning.jpg",
+      type: "award",
+    },
     {
       title: "Deloitte Australia: Data Analytics Job Simulation",
       issuer: "Deloitte / Forage",
