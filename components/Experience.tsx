@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Linkedin, Briefcase, GraduationCap, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteContent, ExperienceItem } from "@/data/content";
+import Card3D from "./Card3D";
 
 export default function Experience() {
   const { experience, personal, socials } = siteContent;
@@ -16,9 +17,11 @@ export default function Experience() {
     const isEducation = item.role.includes("BS Information");
 
     return (
-      <div
+      <Card3D
         key={item.id}
-        className="w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-cyan-100/70 dark:border-slate-700 shadow-soft dark:shadow-soft-dark hover:shadow-glow hover:-translate-y-1 transition-all duration-300"
+        maxTilt={6}
+        glowColor="rgba(14, 165, 233, 0.16)"
+        className="w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-cyan-100/70 dark:border-slate-700 shadow-soft dark:shadow-soft-dark hover:shadow-glow"
       >
         <div className="flex items-start justify-between gap-3 mb-2">
           <div>
@@ -30,7 +33,7 @@ export default function Experience() {
               {item.company}
             </p>
           </div>
-          <div className="p-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400">
+          <div className="p-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 shadow-xs">
             {isEducation ? (
               <GraduationCap className="w-4 h-4" />
             ) : (
@@ -46,7 +49,7 @@ export default function Experience() {
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {item.description}
         </p>
-      </div>
+      </Card3D>
     );
   };
 

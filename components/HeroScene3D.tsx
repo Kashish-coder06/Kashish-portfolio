@@ -62,24 +62,73 @@ function OrbitBadge({
 
 function SceneInteractive() {
   const groupRef = useRef<THREE.Group>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+  const starsRef = useRef<THREE.Points>(null);
 
-  useFrame(({ mouse }) => {
+  // Generate gentle 3D ambient particle starfield
+  const particleCount = 45;
+  const positions = React.useMemo(() => {
+    const pos = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 7.5;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 6.5;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 3 - 0.5;
+    }
+    return pos;
+  }, []);
+
+  useFrame(({ mouse }, delta) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
-        mouse.x * 0.25,
+        mouse.x * 0.35,
         0.05
       );
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        -mouse.y * 0.15,
+        -mouse.y * 0.2,
         0.05
       );
+    }
+    if (ringRef.current) {
+      ringRef.current.rotation.z += delta * 0.15;
+      ringRef.current.rotation.x = THREE.MathUtils.degToRad(68);
+    }
+    if (starsRef.current) {
+      starsRef.current.rotation.y -= delta * 0.04;
     }
   });
 
   return (
     <group ref={groupRef}>
+      {/* Subtle 3D Glowing Particle Dust */}
+      <points ref={starsRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            args={[positions, 3]}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.065}
+          color="#38bdf8"
+          transparent
+          opacity={0.65}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+
+      {/* Futuristic 3D Cyber Ring around avatar */}
+      <mesh ref={ringRef} position={[0, 0, -0.2]}>
+        <torusGeometry args={[2.0, 0.018, 16, 100]} />
+        <meshBasicMaterial
+          color="#06b6d4"
+          wireframe
+          transparent
+          opacity={0.4}
+        />
+      </mesh>
+
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.6}>
         <OrbitBadge
           radius={2.5}
