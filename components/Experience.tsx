@@ -9,12 +9,8 @@ import { siteContent, ExperienceItem } from "@/data/content";
 export default function Experience() {
   const { experience, personal, socials } = siteContent;
 
-  const leftCards = experience.items.filter(
-    (item) => item.position === "left-top" || item.position === "left-bottom"
-  );
-  const rightCards = experience.items.filter(
-    (item) => item.position === "right-top" || item.position === "right-bottom"
-  );
+  const leftCards = experience.items.filter((item) => item.side === "left");
+  const rightCards = experience.items.filter((item) => item.side === "right");
 
   const renderCard = (item: ExperienceItem) => {
     const isEducation = item.role.includes("BS Information");
@@ -73,15 +69,15 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* 4 Cards Around Center Character (Reference Layout) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-          {/* Left Column (2 Cards) */}
+        {/* Symmetrical Balanced Layout with Center Character Avatar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          {/* Left Column (3 Experience Cards) */}
           <div className="lg:col-span-4 flex flex-col gap-6 order-2 lg:order-1">
             {leftCards.map((item) => renderCard(item))}
           </div>
 
-          {/* Center Column: Professional Character Pose + Experience Badge */}
-          <div className="lg:col-span-4 flex flex-col items-center justify-center order-1 lg:order-2 my-6 lg:my-0">
+          {/* Center Column: Sticky Balanced Professional Character Avatar */}
+          <div className="lg:col-span-4 flex flex-col items-center justify-center order-1 lg:order-2 my-6 lg:my-0 lg:sticky lg:top-28">
             <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] rounded-full p-2 bg-gradient-to-tr from-cyan-400 via-sky-300 to-blue-500 shadow-glow-lg flex items-center justify-center">
               {/* Soft Ambient Glow */}
               <div className="absolute inset-0 rounded-full bg-cyan-400/25 blur-xl pointer-events-none" />
@@ -97,7 +93,7 @@ export default function Experience() {
                 />
               </div>
 
-              {/* Badge Below Avatar (Matching Reference) */}
+              {/* Badge Below Avatar */}
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 shadow-md border border-cyan-200 dark:border-cyan-800 flex items-center gap-1.5 whitespace-nowrap z-20">
                 <span className="w-2 h-2 rounded-full bg-cyan-500 animate-ping" />
                 <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400">
@@ -107,7 +103,7 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Right Column (2 Cards) */}
+          {/* Right Column (2 Experience Cards) */}
           <div className="lg:col-span-4 flex flex-col gap-6 order-3">
             {rightCards.map((item) => renderCard(item))}
           </div>

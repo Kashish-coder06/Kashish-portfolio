@@ -20,7 +20,7 @@ export interface ExperienceItem {
   duration: string;
   description: string;
   badge?: string;
-  position: "left-top" | "left-middle" | "left-bottom" | "right-top" | "right-middle" | "right-bottom";
+  side: "left" | "right";
 }
 
 export interface EducationItem {
@@ -301,8 +301,8 @@ export const siteContent = {
   experience: {
     heading: "My",
     headingHighlight: "Experience",
-    subtitle: "My professional journey and educational background in technology",
-    badgeCenter: "4+ Experiences",
+    subtitle: "My professional journey, internships, and educational background in technology",
+    badgeCenter: "5 Experiences & Roles",
     items: [
       {
         id: "datheon",
@@ -311,16 +311,7 @@ export const siteContent = {
         duration: "Oct 2026 - Nov 05, 2026 (4 Weeks)",
         description:
           "Engineered AI workflows with LangChain, integrated LLM architectures, and built automated intelligent systems (Certificate ID: CERT-DT-2026-EPZNH).",
-        position: "left-top",
-      },
-      {
-        id: "alkhidmat",
-        role: "Volunteer Management Intern",
-        company: "Alkhidmat Foundation Pakistan",
-        duration: "June 2026 - Present",
-        description:
-          "Coordinating volunteer groups, managing community welfare operations, and streamlining communication pipelines for relief drives.",
-        position: "left-bottom",
+        side: "left",
       },
       {
         id: "borlo-labs",
@@ -329,7 +320,25 @@ export const siteContent = {
         duration: "March 2026 - April 2026",
         description:
           "Explored RAG applications for intelligent knowledge retrieval, engineered FastAPI workflows for AI backends, and developed prompt chains.",
-        position: "right-top",
+        side: "left",
+      },
+      {
+        id: "alkhidmat",
+        role: "Volunteer Management Intern",
+        company: "Alkhidmat Foundation Pakistan",
+        duration: "June 2026 - Present",
+        description:
+          "Coordinating volunteer groups, managing community welfare operations, and streamlining communication pipelines for relief drives.",
+        side: "left",
+      },
+      {
+        id: "digital-sindh",
+        role: "Graphic Designer & Computer Operator Intern",
+        company: "Digital Sindh Institute of Management & Technology",
+        duration: "October 2024",
+        description:
+          "Internship: Designed promotional visual content, marketing banners, and handled administrative computer operations and data management.",
+        side: "right",
       },
       {
         id: "gcuh-degree",
@@ -338,16 +347,7 @@ export const siteContent = {
         duration: "2024 - 2027 (Expected)",
         description:
           "Current CGPA: 3.80/4.0. Strong academic focus on Data Structures, Python, Database Management Systems, and Software Engineering.",
-        position: "right-bottom",
-      },
-      {
-        id: "digital-sindh",
-        role: "Graphic Designer & Computer Operator",
-        company: "Digital Sindh Institute of Management & Technology",
-        duration: "October 2024",
-        description:
-          "Designed promotional visual content, digital banners, and handled administrative computer operations and data management.",
-        position: "right-bottom",
+        side: "right",
       },
     ] as ExperienceItem[],
 
