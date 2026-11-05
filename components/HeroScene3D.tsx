@@ -11,6 +11,9 @@ import {
   IconPandas,
   IconScikitLearn,
   IconTableau,
+  IconPhotoshop,
+  IconCanva,
+  IconIllustrator,
 } from "./TechIcons";
 
 interface OrbitBadgeProps {
@@ -115,7 +118,7 @@ function SceneInteractive() {
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.6}>
         <OrbitBadge
           radius={2.5}
-          speed={0.4}
+          speed={0.38}
           initialAngle={0}
           icon={<IconPython className="w-4 h-4" />}
           label="Python"
@@ -123,35 +126,51 @@ function SceneInteractive() {
         />
         <OrbitBadge
           radius={2.6}
-          speed={-0.35}
-          initialAngle={1.25}
-          icon={<IconFastAPI className="w-4 h-4" />}
-          label="FastAPI"
-          color="#009688"
+          speed={-0.34}
+          initialAngle={0.9}
+          icon={<IconPhotoshop className="w-4 h-4" />}
+          label="Photoshop"
+          color="#31a8ff"
         />
         <OrbitBadge
           radius={2.7}
           speed={0.32}
-          initialAngle={2.5}
+          initialAngle={1.8}
           icon={<IconPandas className="w-4 h-4" />}
           label="Pandas"
           color="#e11d48"
         />
         <OrbitBadge
+          radius={2.5}
+          speed={-0.36}
+          initialAngle={2.7}
+          icon={<IconIllustrator className="w-4 h-4" />}
+          label="Illustrator"
+          color="#ff9a00"
+        />
+        <OrbitBadge
+          radius={2.65}
+          speed={0.35}
+          initialAngle={3.6}
+          icon={<IconFastAPI className="w-4 h-4" />}
+          label="FastAPI"
+          color="#009688"
+        />
+        <OrbitBadge
           radius={2.55}
-          speed={-0.38}
-          initialAngle={3.75}
+          speed={-0.33}
+          initialAngle={4.5}
           icon={<IconScikitLearn className="w-4 h-4" />}
           label="Scikit-Learn"
           color="#f97316"
         />
         <OrbitBadge
           radius={2.45}
-          speed={0.34}
-          initialAngle={5.0}
-          icon={<IconTableau className="w-4 h-4" />}
-          label="Tableau"
-          color="#e97627"
+          speed={0.36}
+          initialAngle={5.4}
+          icon={<IconCanva className="w-4 h-4" />}
+          label="Canva"
+          color="#00c4cc"
         />
       </Float>
     </group>
@@ -217,9 +236,9 @@ export default function HeroScene3D({
             </span>
           </div>
           <div className="absolute bottom-6 left-6 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-cyan-100 dark:border-slate-800 animate-float-slow">
-            <IconFastAPI className="w-4 h-4 text-teal-500" />
+            <IconPhotoshop className="w-4 h-4 text-sky-500" />
             <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-              FastAPI
+              Photoshop
             </span>
           </div>
           <div className="absolute top-1/2 -left-3 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-cyan-100 dark:border-slate-800 animate-float-reverse">
@@ -229,9 +248,9 @@ export default function HeroScene3D({
             </span>
           </div>
           <div className="absolute bottom-12 right-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-cyan-100 dark:border-slate-800 animate-float">
-            <IconScikitLearn className="w-4 h-4 text-orange-500" />
+            <IconIllustrator className="w-4 h-4 text-amber-500" />
             <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">
-              Scikit-Learn
+              Illustrator
             </span>
           </div>
         </div>
