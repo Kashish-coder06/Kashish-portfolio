@@ -176,22 +176,22 @@ export const siteContent = {
 
   projects: [
     {
-      id: "kashish-bot",
-      title: "KashishBot",
+      id: "raasta-civic-platform",
+      title: "Raasta — Civic Issue Platform",
       shortDescription:
-        "Conversational AI chatbot built with Python and the high-speed Groq API for rapid inference.",
+        "Full-stack civic engagement and issue mapping application built during the Denning Hackathon.",
       fullDescription:
-        "An intelligent, ultra-fast conversational assistant engineered with Python and Groq LLMs. Features streaming responses, customizable system personas, context memory retention, and low-latency API handling.",
+        "An innovative civic issue reporting and interactive map explorer platform. Empowers citizens to report local civic issues (potholes, water leaks, streetlights) with real-time geolocation mapping, live status histories, community upvotes, and administrative moderator workflows.",
       problem:
-        "Standard conversational interfaces often suffer from high token latency and clumsy context retention on local devices.",
+        "Citizens lack an accessible, transparent, real-time mechanism to report and track municipal infrastructure problems directly to responsible authorities.",
       approach:
-        "Integrated the Groq SDK with Llama-3 acceleration, engineered structured prompt memory buffers, and implemented responsive client feedback.",
+        "Engineered with React 18, TypeScript, Tailwind CSS, Leaflet GIS mapping, Supabase backend integration, and a role-based moderator review dashboard.",
       learned:
-        "Gained deep hands-on expertise in Groq inference optimization, streaming token chunking, and deterministic prompt system guidelines.",
-      tags: ["Python", "Groq API", "Generative AI", "Prompt Engineering"],
-      image: "/projects/kashishbot.svg",
-      liveUrl: "https://github.com/Kashish-coder06",
-      githubUrl: "https://github.com/Kashish-coder06",
+        "Gained comprehensive experience in Leaflet interactive spatial mapping, geographic coordinate plotting, Supabase schema migrations, and high-pressure hackathon teamwork.",
+      tags: ["React", "TypeScript", "Tailwind CSS", "Leaflet GIS", "Supabase"],
+      image: "/projects/raasta.png",
+      liveUrl: "https://hackathon-project-team-triad-5jddxnsivxmouav55uwfc7.streamlit.app/",
+      githubUrl: "https://github.com/Kashish-coder06/hackathon-project-team-TRIAD",
       featured: true,
     },
     {
@@ -209,27 +209,26 @@ export const siteContent = {
         "Mastered complex regex tokenization, custom multilingual stop-word filtering, and high-performance dataframe slicing.",
       tags: ["Python", "Streamlit", "Pandas", "Plotly", "Regex"],
       image: "/projects/whatsapp-analyzer.png",
-      liveUrl: "https://github.com/Kashish-coder06",
-      githubUrl: "https://github.com/Kashish-coder06",
+      liveUrl: "https://whatsapp-analyzerapp.streamlit.app/",
+      githubUrl: "https://github.com/Kashish-coder06/whatsapp-analyzer",
       featured: true,
     },
     {
-      id: "raasta-civic-platform",
-      title: "Raasta — Civic Issue Platform",
+      id: "kashish-bot",
+      title: "KashishBot",
       shortDescription:
-        "Full-stack civic engagement and issue mapping application built during the Denning Hackathon.",
+        "Conversational AI chatbot built with Python and the high-speed Groq API for rapid inference.",
       fullDescription:
-        "An innovative civic issue reporting and interactive map explorer platform. Empowers citizens to report local civic issues (potholes, water leaks, streetlights) with real-time geolocation mapping, live status histories, community upvotes, and administrative moderator workflows.",
+        "An intelligent, ultra-fast conversational assistant engineered with Python and Groq LLMs. Features streaming responses, customizable system personas, context memory retention, and low-latency API handling.",
       problem:
-        "Citizens lack an accessible, transparent, real-time mechanism to report and track municipal infrastructure problems directly to responsible authorities.",
+        "Standard conversational interfaces often suffer from high token latency and clumsy context retention on local devices.",
       approach:
-        "Engineered with React 18, TypeScript, Tailwind CSS, Leaflet GIS mapping, Supabase backend integration, and a role-based moderator review dashboard.",
+        "Integrated the Groq SDK with Llama-3 acceleration, engineered structured prompt memory buffers, and implemented responsive client feedback.",
       learned:
-        "Gained comprehensive experience in Leaflet interactive spatial mapping, geographic coordinate plotting, Supabase schema migrations, and high-pressure hackathon teamwork.",
-      tags: ["React", "TypeScript", "Tailwind CSS", "Leaflet GIS", "Supabase"],
-      image: "/projects/raasta.png",
-      liveUrl: "https://github.com/Kashish-coder06/hackathon-project-team-TRIAD",
-      githubUrl: "https://github.com/Kashish-coder06/hackathon-project-team-TRIAD",
+        "Gained deep hands-on expertise in Groq inference optimization, streaming token chunking, and deterministic prompt system guidelines.",
+      tags: ["Python", "Groq API", "Generative AI", "Prompt Engineering"],
+      image: "/projects/kashishbot.svg",
+      githubUrl: "https://github.com/Kashish-coder06/AI_chatbot",
       featured: true,
     },
   ] as ProjectItem[],
