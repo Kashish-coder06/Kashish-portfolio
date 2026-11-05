@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Bubbles from "@/components/Bubbles";
+import CursorGlow from "@/components/CursorGlow";
 import FloatingButtons from "@/components/FloatingButtons";
 import Footer from "@/components/Footer";
 
@@ -67,6 +68,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <CursorGlow />
           <Bubbles />
           <Navbar />
           <main className="relative">{children}</main>
