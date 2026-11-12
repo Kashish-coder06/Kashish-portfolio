@@ -1,148 +1,153 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1584 396" width="1584" height="396">
   <defs>
-    <!-- Background Gradient Matching Portfolio Theme -->
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#030712" />
-      <stop offset="45%" stop-color="#081528" />
-      <stop offset="85%" stop-color="#0b2447" />
-      <stop offset="100%" stop-color="#030712" />
+    <!-- Smooth Deep Tech Background matching Portfolio -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1120" />
+      <stop offset="50%" stop-color="#0d1b2e" />
+      <stop offset="100%" stop-color="#070c18" />
     </linearGradient>
 
-    <!-- Accent Text Gradient -->
-    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#06b6d4" />
+    <!-- Cyan-to-Blue Highlight Gradient -->
+    <linearGradient id="cyanBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
       <stop offset="50%" stop-color="#38bdf8" />
-      <stop offset="100%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#60a5fa" />
     </linearGradient>
 
-    <!-- Glowing Orb Gradients -->
-    <radialGradient id="orbCyan" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35" />
-      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
-    </radialGradient>
-
-    <radialGradient id="orbBlue" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25" />
-      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
-    </radialGradient>
-
-    <!-- Card Background Gradient -->
-    <linearGradient id="badgeBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08" />
+    <!-- Subtle Glass Pill Background -->
+    <linearGradient id="pillBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.07" />
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
     </linearGradient>
 
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
+    <!-- Ambient Glow Drops -->
+    <radialGradient id="glowLeft" cx="40%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="glowRight" cx="70%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.20" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+    </radialGradient>
   </defs>
 
-  <!-- Base Background -->
-  <rect width="1584" height="396" fill="url(#bgGradient)" />
+  <!-- Background Canvas -->
+  <rect width="1584" height="396" fill="url(#bg)" />
 
-  <!-- Ambient Glow Orbs -->
-  <circle cx="200" cy="80" r="260" fill="url(#orbCyan)" />
-  <circle cx="1380" cy="300" r="320" fill="url(#orbBlue)" />
-  <circle cx="850" cy="40" r="200" fill="url(#orbCyan)" />
+  <!-- Soft Volumetric Background Glows -->
+  <circle cx="260" cy="120" r="340" fill="url(#glowLeft)" />
+  <circle cx="1320" cy="220" r="380" fill="url(#glowRight)" />
 
-  <!-- Decorative Tech Geometric Grid Lines -->
-  <g opacity="0.12" stroke="#38bdf8" stroke-width="1">
-    <line x1="80" y1="0" x2="80" y2="396" />
-    <line x1="280" y1="0" x2="280" y2="396" />
-    <line x1="1280" y1="0" x2="1280" y2="396" />
-    <line x1="1480" y1="0" x2="1480" y2="396" />
-    <line x1="0" y1="80" x2="1584" y2="80" />
-    <line x1="0" y1="320" x2="1584" y2="320" />
+  <!-- Very Subtle Clean Tech Grid (Minimal) -->
+  <g opacity="0.05" stroke="#38bdf8" stroke-width="1">
+    <line x1="0" y1="99" x2="1584" y2="99" />
+    <line x1="0" y1="198" x2="1584" y2="198" />
+    <line x1="0" y1="297" x2="1584" y2="297" />
+    <line x1="396" y1="0" x2="396" y2="396" />
+    <line x1="792" y1="0" x2="792" y2="396" />
+    <line x1="1188" y1="0" x2="1188" y2="396" />
   </g>
 
-  <!-- Left Side Space Reserved for LinkedIn Profile Avatar (Circular Safe Zone visual cue) -->
-  <!-- Main Content Shifted to Right (x: 420 to 1500) for Perfect LinkedIn Desktop & Mobile Layout -->
+  <!-- ======================================================== -->
+  <!-- MAIN CONTENT: Safe Zone (Left: 380px reserved for Avatar) -->
+  <!-- ======================================================== -->
 
-  <!-- Top Badge: Status / Availability -->
-  <g transform="translate(430, 52)">
-    <rect width="320" height="32" rx="16" fill="url(#badgeBg)" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.4" />
-    <circle cx="16" cy="16" r="4.5" fill="#10b981" />
-    <circle cx="16" cy="16" r="8" fill="#10b981" opacity="0.3" />
-    <text x="32" y="21" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="1">
-      OPEN TO INTERNSHIPS &amp; ROLES
+  <!-- Status Chip: Open to Opportunities -->
+  <g transform="translate(400, 56)">
+    <rect width="250" height="30" rx="15" fill="url(#pillBg)" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.35" />
+    <circle cx="15" cy="15" r="4" fill="#34d399" />
+    <circle cx="15" cy="15" r="8" fill="#34d399" opacity="0.25" />
+    <text x="30" y="20" fill="#a5f3fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="600" letter-spacing="1.2">
+      OPEN TO WORK &amp; COLLABORATION
     </text>
   </g>
 
-  <!-- Main Name Title -->
-  <text x="430" y="145" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" letter-spacing="-0.5">
+  <!-- Name -->
+  <text x="400" y="142" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="48" font-weight="800" letter-spacing="-0.5">
     Kashish Kumari
   </text>
 
-  <!-- Accent Underline Bar -->
-  <rect x="430" y="162" width="220" height="5" rx="2.5" fill="url(#accentGradient)" filter="url(#glow)" />
+  <!-- Accent underline bar matching portfolio hero -->
+  <rect x="400" y="156" width="130" height="4.5" rx="2.25" fill="url(#cyanBlue)" />
 
-  <!-- Dynamic Roles Subtitle -->
-  <text x="430" y="205" fill="url(#accentGradient)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" letter-spacing="0.5">
-    Python Developer  •  Generative AI Builder  •  Data Analyst  •  Graphic Designer
+  <!-- Roles Title: Clean, highlighted -->
+  <text x="400" y="196" fill="url(#cyanBlue)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" letter-spacing="0.3">
+    Python Developer  •  Data Analyst  •  GenAI Builder  •  Graphic Designer
   </text>
 
-  <!-- One-liner Bio / Impact Statement -->
-  <text x="430" y="238" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="400">
-    BS IT @ GCUH (CGPA 3.80/4.0) | LangChain &amp; RAG Systems | Python Automation | Data Visualization
+  <!-- Concise Tagline / Bio -->
+  <text x="400" y="228" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400">
+    BS IT @ GCUH (CGPA 3.80) | Building Intelligent AI Automations, Data Solutions &amp; Modern Designs
   </text>
 
-  <!-- Feature Skill Badges -->
-  <g transform="translate(430, 268)">
-    <!-- Badge 1: Python -->
+  <!-- Core Skills Pills: Minimal, elegant, spaced -->
+  <g transform="translate(400, 258)">
+    <!-- Pill 1: Python -->
     <g transform="translate(0, 0)">
-      <rect width="90" height="34" rx="17" fill="url(#badgeBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3" />
-      <text x="45" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Python</text>
+      <rect width="84" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="42" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">Python</text>
     </g>
 
-    <!-- Badge 2: GenAI & LangChain -->
-    <g transform="translate(102, 0)">
-      <rect width="168" height="34" rx="17" fill="url(#badgeBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3" />
-      <text x="84" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">GenAI &amp; LangChain</text>
+    <!-- Pill 2: FastAPI -->
+    <g transform="translate(94, 0)">
+      <rect width="86" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="43" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">FastAPI</text>
     </g>
 
-    <!-- Badge 3: Streamlit & Pandas -->
-    <g transform="translate(282, 0)">
-      <rect width="158" height="34" rx="17" fill="url(#badgeBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3" />
-      <text x="79" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Streamlit &amp; Pandas</text>
+    <!-- Pill 3: Pandas & EDA -->
+    <g transform="translate(190, 0)">
+      <rect width="130" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="65" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">Pandas &amp; EDA</text>
     </g>
 
-    <!-- Badge 4: UI/UX & Photoshop -->
-    <g transform="translate(452, 0)">
-      <rect width="158" height="34" rx="17" fill="url(#badgeBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3" />
-      <text x="79" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Graphic &amp; UI Design</text>
+    <!-- Pill 4: Scikit-Learn -->
+    <g transform="translate(330, 0)">
+      <rect width="118" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="59" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">Scikit-Learn</text>
     </g>
 
-    <!-- Badge 5: Fast Inferences -->
-    <g transform="translate(622, 0)">
-      <rect width="118" height="34" rx="17" fill="url(#badgeBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3" />
-      <text x="59" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Groq LLMs</text>
+    <!-- Pill 5: GenAI & RAG -->
+    <g transform="translate(458, 0)">
+      <rect width="122" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="61" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">GenAI &amp; RAG</text>
+    </g>
+
+    <!-- Pill 6: Graphic Design -->
+    <g transform="translate(590, 0)">
+      <rect width="130" height="32" rx="16" fill="url(#pillBg)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.25" />
+      <text x="65" y="21" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12.5" font-weight="600" text-anchor="middle">Graphic Design</text>
     </g>
   </g>
 
-  <!-- Bottom Details Contact & Portfolio Callout -->
-  <g transform="translate(430, 342)">
-    <text x="0" y="0" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="700">
-      🌐 kashishkumari.netlify.app
+  <!-- Clean Contact & Portfolio Footer Line -->
+  <g transform="translate(400, 334)">
+    <!-- Portfolio -->
+    <text x="0" y="0" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600">
+      kashishkumari.netlify.app
     </text>
-    <text x="240" y="0" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5">|</text>
-    <text x="260" y="0" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="500">
-      ✉️ kashish06kumari@gmail.com
+
+    <!-- Separator -->
+    <text x="210" y="0" fill="#475569" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">•</text>
+
+    <!-- Email -->
+    <text x="230" y="0" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">
+      kashish06kumari@gmail.com
     </text>
-    <text x="530" y="0" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5">|</text>
-    <text x="550" y="0" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="500">
-      📍 Hyderabad, Sindh, Pakistan
+
+    <!-- Separator -->
+    <text x="475" y="0" fill="#475569" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">•</text>
+
+    <!-- Location -->
+    <text x="495" y="0" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">
+      Hyderabad, Pakistan
     </text>
   </g>
 
-  <!-- Right Decorative Element: Abstract Glowing Code / Geometry -->
-  <g transform="translate(1330, 70)" opacity="0.75">
-    <rect width="160" height="110" rx="16" fill="url(#badgeBg)" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.3" />
-    <circle cx="28" cy="28" r="4" fill="#ef4444" />
-    <circle cx="42" cy="28" r="4" fill="#f59e0b" />
-    <circle cx="56" cy="28" r="4" fill="#10b981" />
-    <text x="26" y="60" fill="#38bdf8" font-family="monospace" font-size="12 font-weight='700'">import langchain</text>
-    <text x="26" y="80" fill="#a5f3fc" font-family="monospace" font-size="12 font-weight='700'">model = Groq()</text>
-    <text x="26" y="100" fill="#34d399" font-family="monospace" font-size="11 font-weight='600'">build_ai_rag()</text>
+  <!-- Right Side: Clean Minimal Tech Accents -->
+  <g transform="translate(1360, 100)" opacity="0.6">
+    <circle cx="60" cy="60" r="50" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="4 6" />
+    <circle cx="60" cy="60" r="30" fill="none" stroke="#3b82f6" stroke-width="1" />
+    <circle cx="60" cy="60" r="4" fill="#38bdf8" />
   </g>
 </svg>
